@@ -51,7 +51,8 @@
       this.resultInventory = new Inventory(1);
       this.resultIW = new InventoryWindow({
         inventory: this.resultInventory,
-        getTexture: this.getTexture
+        getTexture: this.getTexture,
+        allowDrop: false
       });
       this.dialog = document.createElement('div');
       this.dialog.style.border = '6px outset gray';

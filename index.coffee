@@ -24,7 +24,7 @@ class InventoryDialog
     @craftIW = new InventoryWindow {width:2, inventory:@craftInventory, getTexture:@getTexture}
 
     @resultInventory = new Inventory(1)
-    @resultIW = new InventoryWindow {inventory:@resultInventory, getTexture:@getTexture}
+    @resultIW = new InventoryWindow {inventory:@resultInventory, getTexture:@getTexture, allowDrop:false}
 
     # the overall dialog
     @dialog = document.createElement('div')
