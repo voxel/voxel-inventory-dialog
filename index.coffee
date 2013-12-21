@@ -2,6 +2,7 @@
 
 Inventory = require 'inventory'
 InventoryWindow = require 'inventory-window'
+ItemPile = require 'itempile'
 
 module.exports = (game, opts) ->
   new InventoryDialog(game, opts)
@@ -19,6 +20,7 @@ class InventoryDialog
       }
 
     @craftInventory = new Inventory(4)
+    @craftInventory.on 'changed', () => @updateCrafting()
     @craftIW = new InventoryWindow {width:2, inventory:@craftInventory, getTexture:@getTexture}
 
     @resultInventory = new Inventory(1)
@@ -74,4 +76,11 @@ class InventoryDialog
       @hide()
     else
       @show()
+
+  updateCrafting: () ->
+    # TODO: recipes
+    if @craftInventory.get(0)?.item == 'logOak'
+      @resultInventory.set 0, new ItemPile('plankOak')
+    else
+      @resultInventory.set 0, undefined
 
