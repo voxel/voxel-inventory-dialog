@@ -22,18 +22,22 @@ class InventoryDialog
     @craftIW = new InventoryWindow {width:2, inventory:@craftInventory, getTexture:@getTexture}
 
     @dialog = document.createElement('div')
-    @dialog.style.border = '6px grooved black'
+    @dialog.style.border = '6px outset gray'
     @dialog.style.visibility = 'hidden'
     @dialog.style.position = 'absolute'
     @dialog.style.top = '20%'
     @dialog.style.left = '30%'
     @dialog.style.zIndex = 1
+    @dialog.style.backgroundImage = 'linear-gradient(rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.5) 100%)'
     document.body.appendChild(@dialog)
    
     container = @craftIW.createContainer()
     container.style.float = 'right'
+    container.style.marginBottom = '10px'
     @dialog.appendChild(container)
+
     @dialog.appendChild(document.createElement('br')) # TODO: better positioning
+
     @dialog.appendChild(@playerIW.createContainer())
 
 

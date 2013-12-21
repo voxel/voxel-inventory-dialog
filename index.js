@@ -44,15 +44,17 @@
         getTexture: this.getTexture
       });
       this.dialog = document.createElement('div');
-      this.dialog.style.border = '6px grooved black';
+      this.dialog.style.border = '6px outset gray';
       this.dialog.style.visibility = 'hidden';
       this.dialog.style.position = 'absolute';
       this.dialog.style.top = '20%';
       this.dialog.style.left = '30%';
       this.dialog.style.zIndex = 1;
+      this.dialog.style.backgroundImage = 'linear-gradient(rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.5) 100%)';
       document.body.appendChild(this.dialog);
       container = this.craftIW.createContainer();
       container.style.float = 'right';
+      container.style.marginBottom = '10px';
       this.dialog.appendChild(container);
       this.dialog.appendChild(document.createElement('br'));
       this.dialog.appendChild(this.playerIW.createContainer());
