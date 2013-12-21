@@ -12,7 +12,7 @@
 
   InventoryDialog = (function() {
     function InventoryDialog(game, opts) {
-      var container, _ref, _ref1, _ref2,
+      var crDiv, craftCont, resultCont, _ref, _ref1, _ref2,
         _this = this;
       this.game = game;
       this.playerInventory = (function() {
@@ -43,6 +43,11 @@
         inventory: this.craftInventory,
         getTexture: this.getTexture
       });
+      this.resultInventory = new Inventory(1);
+      this.resultIW = new InventoryWindow({
+        inventory: this.resultInventory,
+        getTexture: this.getTexture
+      });
       this.dialog = document.createElement('div');
       this.dialog.style.border = '6px outset gray';
       this.dialog.style.visibility = 'hidden';
@@ -52,10 +57,16 @@
       this.dialog.style.zIndex = 1;
       this.dialog.style.backgroundImage = 'linear-gradient(rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.5) 100%)';
       document.body.appendChild(this.dialog);
-      container = this.craftIW.createContainer();
-      container.style.float = 'right';
-      container.style.marginBottom = '10px';
-      this.dialog.appendChild(container);
+      crDiv = document.createElement('div');
+      crDiv.style.float = 'right';
+      crDiv.style.marginBottom = '10px';
+      craftCont = this.craftIW.createContainer();
+      resultCont = this.resultIW.createContainer();
+      resultCont.style.marginLeft = '30px';
+      resultCont.style.marginTop = '15%';
+      crDiv.appendChild(craftCont);
+      crDiv.appendChild(resultCont);
+      this.dialog.appendChild(crDiv);
       this.dialog.appendChild(document.createElement('br'));
       this.dialog.appendChild(this.playerIW.createContainer());
     }

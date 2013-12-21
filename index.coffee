@@ -21,6 +21,10 @@ class InventoryDialog
     @craftInventory = new Inventory(4)
     @craftIW = new InventoryWindow {width:2, inventory:@craftInventory, getTexture:@getTexture}
 
+    @resultInventory = new Inventory(1)
+    @resultIW = new InventoryWindow {inventory:@resultInventory, getTexture:@getTexture}
+
+    # the overall dialog
     @dialog = document.createElement('div')
     @dialog.style.border = '6px outset gray'
     @dialog.style.visibility = 'hidden'
@@ -30,14 +34,24 @@ class InventoryDialog
     @dialog.style.zIndex = 1
     @dialog.style.backgroundImage = 'linear-gradient(rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.5) 100%)'
     document.body.appendChild(@dialog)
+
+    # crafting + result div, upper
+    crDiv = document.createElement('div')
+    crDiv.style.float = 'right'
+    crDiv.style.marginBottom = '10px'
    
-    container = @craftIW.createContainer()
-    container.style.float = 'right'
-    container.style.marginBottom = '10px'
-    @dialog.appendChild(container)
+    craftCont = @craftIW.createContainer()
 
+    resultCont = @resultIW.createContainer()
+    resultCont.style.marginLeft = '30px'
+    resultCont.style.marginTop = '15%'
+
+    crDiv.appendChild(craftCont)
+    crDiv.appendChild(resultCont)
+
+    @dialog.appendChild(crDiv)
     @dialog.appendChild(document.createElement('br')) # TODO: better positioning
-
+    # player inventory at bottom
     @dialog.appendChild(@playerIW.createContainer())
 
 
