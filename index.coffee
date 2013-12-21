@@ -20,11 +20,12 @@ class InventoryDialog
       }
 
     @craftInventory = new Inventory(4)
-    @craftInventory.on 'changed', () => @updateCrafting()
+    @craftInventory.on 'changed', () => @updateCraftingRecipe()
     @craftIW = new InventoryWindow {width:2, inventory:@craftInventory, getTexture:@getTexture}
 
     @resultInventory = new Inventory(1)
     @resultIW = new InventoryWindow {inventory:@resultInventory, getTexture:@getTexture, allowDrop:false}
+    @resultIW.on 'pickup', () => @tookCraftingOutput()
 
     # the overall dialog
     @dialog = document.createElement('div')
@@ -77,10 +78,17 @@ class InventoryDialog
     else
       @show()
 
-  updateCrafting: () ->
+  # changed crafting grid, so update recipe output
+  updateCraftingRecipe: () ->
     # TODO: recipes
     if @craftInventory.get(0)?.item == 'logOak'
-      @resultInventory.set 0, new ItemPile('plankOak')
+      @resultInventory.set 0, new ItemPile('plankOak', 2)
     else
       @resultInventory.set 0, undefined
+
+  # picked up crafting recipe output, so consume crafting grid ingredients
+  tookCraftingOutput: () ->
+    # TODO: consume per recipe
+    @craftInventory.takeAt 0, 1
+    @craftInventory.changed()
 

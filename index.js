@@ -41,7 +41,7 @@
       });
       this.craftInventory = new Inventory(4);
       this.craftInventory.on('changed', function() {
-        return _this.updateCrafting();
+        return _this.updateCraftingRecipe();
       });
       this.craftIW = new InventoryWindow({
         width: 2,
@@ -53,6 +53,9 @@
         inventory: this.resultInventory,
         getTexture: this.getTexture,
         allowDrop: false
+      });
+      this.resultIW.on('pickup', function() {
+        return _this.tookCraftingOutput();
       });
       this.dialog = document.createElement('div');
       this.dialog.style.border = '6px outset gray';
@@ -101,13 +104,18 @@
       }
     };
 
-    InventoryDialog.prototype.updateCrafting = function() {
+    InventoryDialog.prototype.updateCraftingRecipe = function() {
       var _ref;
       if (((_ref = this.craftInventory.get(0)) != null ? _ref.item : void 0) === 'logOak') {
-        return this.resultInventory.set(0, new ItemPile('plankOak'));
+        return this.resultInventory.set(0, new ItemPile('plankOak', 2));
       } else {
         return this.resultInventory.set(0, void 0);
       }
+    };
+
+    InventoryDialog.prototype.tookCraftingOutput = function() {
+      this.craftInventory.takeAt(0, 1);
+      return this.craftInventory.changed();
     };
 
     return InventoryDialog;
