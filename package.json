@@ -1,0 +1,15 @@
+{
+  "name": "voxel-inventory-dialog",
+  "description": "",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:deathcap/voxel-inventory-dialog.git"
+  },
+  "dependencies": {
+    "inventory": "git://github.com/deathcap/inventory.git",
+    "itempile": "git://github.com/deathcap/itempile.git",
+    "inventory-window": "git://github.com/deathcap/inventory-window.git",
+    "ever": "0.0.3"
+  }
+}
