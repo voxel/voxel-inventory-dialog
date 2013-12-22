@@ -3,6 +3,7 @@
 Inventory = require 'inventory'
 InventoryWindow = require 'inventory-window'
 ItemPile = require 'itempile'
+{Recipe, AmorphousRecipe, PositionalRecipe, CraftingThesaurus, RecipeLocator} = require 'craftingrecipes'
 
 module.exports = (game, opts) ->
   new InventoryDialog(game, opts)
@@ -57,7 +58,6 @@ class InventoryDialog
     # player inventory at bottom
     @dialog.appendChild(@playerIW.createContainer())
 
-
   enable: () ->
 
   disable: () ->
@@ -80,15 +80,15 @@ class InventoryDialog
 
   # changed crafting grid, so update recipe output
   updateCraftingRecipe: () ->
-    # TODO: recipes
-    if @craftInventory.get(0)?.item == 'logOak'
-      @resultInventory.set 0, new ItemPile('plankOak', 2)
-    else
-      @resultInventory.set 0, undefined
+    recipe = RecipeLocator.find(@craftInventory)
+    console.log 'found recipe',recipe
+    @resultInventory.set 0, recipe?.computeOutput(@craftInventory)
 
   # picked up crafting recipe output, so consume crafting grid ingredients
   tookCraftingOutput: () ->
-    # TODO: consume per recipe
-    @craftInventory.takeAt 0, 1
+    recipe = RecipeLocator.find(@craftInventory)
+    return if not recipe?
+
+    recipe.craft(@craftInventory)
     @craftInventory.changed()
 
