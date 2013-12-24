@@ -4,11 +4,12 @@ Inventory = require 'inventory'
 InventoryWindow = require 'inventory-window'
 ItemPile = require 'itempile'
 {Recipe, AmorphousRecipe, PositionalRecipe, CraftingThesaurus, RecipeLocator} = require 'craftingrecipes'
+Modal = require 'voxel-modal'
 
 module.exports = (game, opts) ->
   new InventoryDialog(game, opts)
 
-class InventoryDialog
+class InventoryDialog extends Modal
   constructor: (@game, opts) ->
     @playerInventory = opts.playerInventory ? throw 'voxel-inventory-dialog requires "playerInventory" set to inventory instance'
     @registry = opts.registry ? throw 'voxel-inventory-dialog requires "registry" set to voxel-registry instance'
@@ -58,25 +59,14 @@ class InventoryDialog
     # player inventory at bottom
     @dialog.appendChild(@playerIW.createContainer())
 
+    super game, {
+      element: @dialog, 
+      escapeKeys:[27, 69] # escape, 'E'
+      }
+
   enable: () ->
 
   disable: () ->
-
-
-  show: () ->
-    @dialog.style.visibility = ''
-
-  hide: () ->
-    @dialog.style.visibility = 'hidden'
-
-  isVisible: () ->
-    return @dialog.style.visibility == ''
-
-  toggle: () ->
-    if @isVisible()
-      @hide()
-    else
-      @show()
 
   # changed crafting grid, so update recipe output
   updateCraftingRecipe: () ->
