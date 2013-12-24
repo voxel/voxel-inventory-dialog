@@ -16,14 +16,13 @@ class InventoryDialog extends Modal
     @getTexture = opts.getTexture ? (itemPile) => @game.materials.texturePath + @registry.getItemProps(itemPile.item).itemTexture + '.png' # TODO: refactor?
 
     @playerIW = new InventoryWindow {
-      width: 10
       inventory: @playerInventory
       getTexture: @getTexture
       }
 
-    @craftInventory = new Inventory(4)
+    @craftInventory = new Inventory(2, 2)
     @craftInventory.on 'changed', () => @updateCraftingRecipe()
-    @craftIW = new InventoryWindow {width:2, inventory:@craftInventory, getTexture:@getTexture}
+    @craftIW = new InventoryWindow {inventory:@craftInventory, getTexture:@getTexture}
 
     @resultInventory = new Inventory(1)
     @resultIW = new InventoryWindow {inventory:@resultInventory, getTexture:@getTexture, allowDrop:false}

@@ -43,16 +43,14 @@
         return _this.game.materials.texturePath + _this.registry.getItemProps(itemPile.item).itemTexture + '.png';
       };
       this.playerIW = new InventoryWindow({
-        width: 10,
         inventory: this.playerInventory,
         getTexture: this.getTexture
       });
-      this.craftInventory = new Inventory(4);
+      this.craftInventory = new Inventory(2, 2);
       this.craftInventory.on('changed', function() {
         return _this.updateCraftingRecipe();
       });
       this.craftIW = new InventoryWindow({
-        width: 2,
         inventory: this.craftInventory,
         getTexture: this.getTexture
       });
