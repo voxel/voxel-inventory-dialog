@@ -22,7 +22,7 @@
     __extends(InventoryDialog, _super);
 
     function InventoryDialog(game, opts) {
-      var crDiv, craftCont, resultCont, _ref1, _ref2,
+      var crDiv, craftCont, resultCont, _ref1,
         _this = this;
       this.game = game;
       this.playerInventory = (function() {
@@ -32,36 +32,20 @@
           throw 'voxel-inventory-dialog requires "playerInventory" set to inventory instance';
         }
       })();
-      this.registry = (function() {
-        if ((_ref2 = opts.registry) != null) {
-          return _ref2;
-        } else {
-          throw 'voxel-inventory-dialog requires "registry" set to voxel-registry instance';
-        }
-      })();
       this.playerIW = new InventoryWindow({
-        inventory: this.playerInventory,
-        getTexture: function(itemPile) {
-          return _this.registry.getItemPileTexture(itemPile);
-        }
+        inventory: this.playerInventory
       });
       this.craftInventory = new Inventory(2, 2);
       this.craftInventory.on('changed', function() {
         return _this.updateCraftingRecipe();
       });
       this.craftIW = new InventoryWindow({
-        inventory: this.craftInventory,
-        getTexture: function(itemPile) {
-          return _this.registry.getItemPileTexture(itemPile);
-        }
+        inventory: this.craftInventory
       });
       this.resultInventory = new Inventory(1);
       this.resultIW = new InventoryWindow({
         inventory: this.resultInventory,
-        allowDrop: false,
-        getTexture: function(itemPile) {
-          return _this.registry.getItemPileTexture(itemPile);
-        }
+        allowDrop: false
       });
       this.resultIW.on('pickup', function() {
         return _this.tookCraftingOutput();
