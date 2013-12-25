@@ -13,19 +13,18 @@ class InventoryDialog extends Modal
   constructor: (@game, opts) ->
     @playerInventory = opts.playerInventory ? throw 'voxel-inventory-dialog requires "playerInventory" set to inventory instance'
     @registry = opts.registry ? throw 'voxel-inventory-dialog requires "registry" set to voxel-registry instance'
-    @getTexture = opts.getTexture ? (itemPile) => @game.materials.texturePath + @registry.getItemProps(itemPile.item).itemTexture + '.png' # TODO: refactor?
 
     @playerIW = new InventoryWindow {
       inventory: @playerInventory
-      getTexture: @getTexture
+      getTexture: (itemPile) => @registry.getItemPileTexture(itemPile)
       }
 
     @craftInventory = new Inventory(2, 2)
     @craftInventory.on 'changed', () => @updateCraftingRecipe()
-    @craftIW = new InventoryWindow {inventory:@craftInventory, getTexture:@getTexture}
+    @craftIW = new InventoryWindow {inventory:@craftInventory, getTexture: (itemPile) => @registry.getItemPileTexture(itemPile)}
 
     @resultInventory = new Inventory(1)
-    @resultIW = new InventoryWindow {inventory:@resultInventory, getTexture:@getTexture, allowDrop:false}
+    @resultIW = new InventoryWindow {inventory:@resultInventory, allowDrop:false, getTexture: (itemPile) => @registry.getItemPileTexture(itemPile)}
     @resultIW.on 'pickup', () => @tookCraftingOutput()
 
     # the overall dialog
