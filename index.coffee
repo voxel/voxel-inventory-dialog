@@ -3,15 +3,18 @@
 Inventory = require 'inventory'
 InventoryWindow = require 'inventory-window'
 ItemPile = require 'itempile'
-{Recipe, AmorphousRecipe, PositionalRecipe, CraftingThesaurus, RecipeLocator} = require 'craftingrecipes'
 Modal = require 'voxel-modal'
 
 module.exports = (game, opts) ->
   new InventoryDialog(game, opts)
 
+module.exports.pluginInfo =
+  'loadAfter': ['!craftingrecipes']
+
 class InventoryDialog extends Modal
   constructor: (@game, opts) ->
     @playerInventory = opts.playerInventory ? throw 'voxel-inventory-dialog requires "playerInventory" set to inventory instance'
+    @recipes = game.plugins?.all['!craftingrecipes'] ? throw 'voxel-inventory-dialog requires "craftingrecipes" plugin'
 
     @playerIW = new InventoryWindow {
       inventory: @playerInventory
@@ -66,13 +69,13 @@ class InventoryDialog extends Modal
 
   # changed crafting grid, so update recipe output
   updateCraftingRecipe: () ->
-    recipe = RecipeLocator.find(@craftInventory)
+    recipe = @recipes.find(@craftInventory)
     console.log 'found recipe',recipe
     @resultInventory.set 0, recipe?.computeOutput(@craftInventory)
 
   # picked up crafting recipe output, so consume crafting grid ingredients
   tookCraftingOutput: () ->
-    recipe = RecipeLocator.find(@craftInventory)
+    recipe = @recipes.find(@craftInventory)
     return if not recipe?
 
     recipe.craft(@craftInventory)
