@@ -9,12 +9,12 @@ module.exports = (game, opts) ->
   new InventoryDialog(game, opts)
 
 module.exports.pluginInfo =
-  'loadAfter': ['!craftingrecipes']
+  'loadAfter': ['craftingrecipes']
 
 class InventoryDialog extends Modal
   constructor: (@game, opts) ->
     @playerInventory = opts.playerInventory ? throw 'voxel-inventory-dialog requires "playerInventory" set to inventory instance'
-    @recipes = game.plugins?.all['!craftingrecipes'] ? throw 'voxel-inventory-dialog requires "craftingrecipes" plugin'
+    @recipes = game.plugins?.get('craftingrecipes') ? throw 'voxel-inventory-dialog requires "craftingrecipes" plugin'
 
     @playerIW = new InventoryWindow {
       inventory: @playerInventory

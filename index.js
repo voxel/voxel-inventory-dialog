@@ -17,7 +17,7 @@
   };
 
   module.exports.pluginInfo = {
-    'loadAfter': ['!craftingrecipes']
+    'loadAfter': ['craftingrecipes']
   };
 
   InventoryDialog = (function(_super) {
@@ -36,7 +36,7 @@
       })();
       this.recipes = (function() {
         var _ref2;
-        if ((_ref1 = (_ref2 = game.plugins) != null ? _ref2.all['!craftingrecipes'] : void 0) != null) {
+        if ((_ref1 = (_ref2 = game.plugins) != null ? _ref2.get('craftingrecipes') : void 0) != null) {
           return _ref1;
         } else {
           throw 'voxel-inventory-dialog requires "craftingrecipes" plugin';
