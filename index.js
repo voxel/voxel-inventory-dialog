@@ -17,7 +17,7 @@
   };
 
   module.exports.pluginInfo = {
-    'loadAfter': ['craftingrecipes']
+    'loadAfter': ['craftingrecipes', 'voxel-carry']
   };
 
   InventoryDialog = (function(_super) {
@@ -28,10 +28,11 @@
         _this = this;
       this.game = game;
       this.playerInventory = (function() {
-        if ((_ref = opts.playerInventory) != null) {
+        var _ref1, _ref2, _ref3;
+        if ((_ref = (_ref1 = (_ref2 = game.plugins) != null ? (_ref3 = _ref2.get('voxel-carry')) != null ? _ref3.inventory : void 0 : void 0) != null ? _ref1 : opts.playerInventory) != null) {
           return _ref;
         } else {
-          throw 'voxel-inventory-dialog requires "playerInventory" set to inventory instance';
+          throw 'voxel-inventory-dialog requires "voxel-carry" plugin or playerInventory" set to inventory instance';
         }
       })();
       this.recipes = (function() {
