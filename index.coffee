@@ -3,7 +3,7 @@
 Inventory = require 'inventory'
 InventoryWindow = require 'inventory-window'
 ItemPile = require 'itempile'
-Modal = require 'voxel-modal'
+ModalDialog = require 'voxel-modal-dialog'
 
 module.exports = (game, opts) ->
   new InventoryDialog(game, opts)
@@ -11,7 +11,7 @@ module.exports = (game, opts) ->
 module.exports.pluginInfo =
   'loadAfter': ['craftingrecipes']
 
-class InventoryDialog extends Modal
+class InventoryDialog extends ModalDialog
   constructor: (@game, opts) ->
     @playerInventory = opts.playerInventory ? throw 'voxel-inventory-dialog requires "playerInventory" set to inventory instance'
     @recipes = game.plugins?.get('craftingrecipes') ? throw 'voxel-inventory-dialog requires "craftingrecipes" plugin'
@@ -28,17 +28,6 @@ class InventoryDialog extends Modal
     @resultIW = new InventoryWindow {inventory:@resultInventory, allowDrop:false}
     @resultIW.on 'pickup', () => @tookCraftingOutput()
 
-    # the overall dialog
-    @dialog = document.createElement('div')
-    @dialog.style.border = '6px outset gray'
-    @dialog.style.visibility = 'hidden'
-    @dialog.style.position = 'absolute'
-    @dialog.style.top = '20%'
-    @dialog.style.left = '30%'
-    @dialog.style.zIndex = 1
-    @dialog.style.backgroundImage = 'linear-gradient(rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.5) 100%)'
-    document.body.appendChild(@dialog)
-
     # crafting + result div, upper
     crDiv = document.createElement('div')
     crDiv.style.float = 'right'
@@ -53,13 +42,14 @@ class InventoryDialog extends Modal
     crDiv.appendChild(craftCont)
     crDiv.appendChild(resultCont)
 
-    @dialog.appendChild(crDiv)
-    @dialog.appendChild(document.createElement('br')) # TODO: better positioning
+    contents = []
+    contents.push crDiv
+    contents.push document.createElement('br') # TODO: better positioning
     # player inventory at bottom
-    @dialog.appendChild(@playerIW.createContainer())
+    contents.push @playerIW.createContainer()
 
     super game, {
-      element: @dialog, 
+      contents: contents
       escapeKeys:[27, 69] # escape, 'E'
       }
 
