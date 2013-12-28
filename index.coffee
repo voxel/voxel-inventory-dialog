@@ -25,7 +25,7 @@ class InventoryDialog extends ModalDialog
     @craftIW = new InventoryWindow {inventory:@craftInventory}
 
     @resultInventory = new Inventory(1)
-    @resultIW = new InventoryWindow {inventory:@resultInventory, allowDrop:false}
+    @resultIW = new InventoryWindow {inventory:@resultInventory, allowDrop:false, linkedInventory:@playerInventory}
     @resultIW.on 'pickup', () => @tookCraftingOutput()
 
     # crafting + result div, upper
