@@ -51,7 +51,8 @@
         return _this.updateCraftingRecipe();
       });
       this.craftIW = new InventoryWindow({
-        inventory: this.craftInventory
+        inventory: this.craftInventory,
+        linkedInventory: this.playerInventory
       });
       this.resultInventory = new Inventory(1);
       this.resultIW = new InventoryWindow({

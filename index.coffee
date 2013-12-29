@@ -22,7 +22,7 @@ class InventoryDialog extends ModalDialog
 
     @craftInventory = new Inventory(2, 2)
     @craftInventory.on 'changed', () => @updateCraftingRecipe()
-    @craftIW = new InventoryWindow {inventory:@craftInventory}
+    @craftIW = new InventoryWindow {inventory:@craftInventory, linkedInventory:@playerInventory}
 
     @resultInventory = new Inventory(1)
     @resultIW = new InventoryWindow {inventory:@resultInventory, allowDrop:false, linkedInventory:@playerInventory}
