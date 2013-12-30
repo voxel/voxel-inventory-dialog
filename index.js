@@ -17,14 +17,14 @@
   };
 
   module.exports.pluginInfo = {
-    'loadAfter': ['craftingrecipes', 'voxel-carry']
+    'loadAfter': ['craftingrecipes', 'voxel-carry', 'voxel-registry']
   };
 
   InventoryDialog = (function(_super) {
     __extends(InventoryDialog, _super);
 
     function InventoryDialog(game, opts) {
-      var contents, crDiv, craftCont, resultCont, _ref, _ref1,
+      var contents, crDiv, craftCont, resultCont, _ref, _ref1, _ref2,
         _this = this;
       this.game = game;
       this.playerInventory = (function() {
@@ -43,8 +43,17 @@
           throw 'voxel-inventory-dialog requires "craftingrecipes" plugin';
         }
       })();
+      this.registry = (function() {
+        var _ref3;
+        if ((_ref2 = (_ref3 = game.plugins) != null ? _ref3.get('voxel-registry') : void 0) != null) {
+          return _ref2;
+        } else {
+          throw 'voxel-inventory-dialog requires "voxel-registry" plugin';
+        }
+      })();
       this.playerIW = new InventoryWindow({
-        inventory: this.playerInventory
+        inventory: this.playerInventory,
+        registry: this.registry
       });
       this.craftInventory = new Inventory(2, 2);
       this.craftInventory.on('changed', function() {
@@ -52,11 +61,13 @@
       });
       this.craftIW = new InventoryWindow({
         inventory: this.craftInventory,
+        registry: this.registry,
         linkedInventory: this.playerInventory
       });
       this.resultInventory = new Inventory(1);
       this.resultIW = new InventoryWindow({
         inventory: this.resultInventory,
+        registry: this.registry,
         allowDrop: false,
         linkedInventory: this.playerInventory
       });
