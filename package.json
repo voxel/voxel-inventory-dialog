@@ -6,11 +6,24 @@
     "type": "git",
     "url": "git@github.com:deathcap/voxel-inventory-dialog.git"
   },
+  "keywords": [
+    "voxel",
+    "inventory",
+    "dialog",
+    "crafting"
+  ],
   "dependencies": {
-    "voxel-modal-dialog": "git://github.com/deathcap/voxel-modal-dialog.git",
-    "inventory": "git://github.com/deathcap/inventory.git",
-    "itempile": "git://github.com/deathcap/itempile.git",
-    "inventory-window": "git://github.com/deathcap/inventory-window.git",
+    "voxel-modal-dialog": "~0.1.0",
+    "inventory": "~0.1.0",
+    "itempile": "~0.1.1",
+    "inventory-window": "~0.1.0",
     "ever": "0.0.3"
-  }
+  },
+  "peerDependencies": {
+    "voxel-plugins": ">=0.1.0",
+    "voxel-carry": ">=0.1.0",
+    "craftingrecipes": ">=0.1.0",
+    "voxel-registry": ">=0.1.0"
+  },
+  "license": "MIT"
 }

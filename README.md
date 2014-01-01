@@ -14,7 +14,7 @@ The upper area is a 2x2 crafting grid to use a subset of available
 ([voxel-workbench](https://github.com/deathcap/voxel-workbench) allows crafting with larger recipes),
 the result picked up from the (pickup-only) rightmost slot. 
 
-Uses [voxel-modal](https://github.com/deathcap/voxel-modal), so keyboard/mouse input
+Uses [voxel-modal-dialog](https://github.com/deathcap/voxel-modal-dialog), so keyboard/mouse input
 to the game will be suppressed when this dialog is visible. Click outside of the dialog
 or hit Escape to close.
 
