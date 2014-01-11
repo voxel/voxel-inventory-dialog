@@ -49,7 +49,7 @@ class InventoryDialog extends ModalDialog
 
     super game, {
       contents: contents
-      escapeKeys:[27, 69] # escape, 'E'
+      escapeKeys:[192, 69] # '`', 'E'
       }
 
   enable: () ->

@@ -89,7 +89,7 @@
       contents.push(this.playerIW.createContainer());
       InventoryDialog.__super__.constructor.call(this, game, {
         contents: contents,
-        escapeKeys: [27, 69]
+        escapeKeys: [192, 69]
       });
     }
 
