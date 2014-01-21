@@ -27,6 +27,9 @@
       var contents, crDiv, craftCont, resultCont, _ref, _ref1, _ref2,
         _this = this;
       this.game = game;
+      if (!this.game.isClient) {
+        return;
+      }
       this.playerInventory = (function() {
         var _ref1, _ref2, _ref3;
         if ((_ref = (_ref1 = (_ref2 = game.plugins) != null ? (_ref3 = _ref2.get('voxel-carry')) != null ? _ref3.inventory : void 0 : void 0) != null ? _ref1 : opts.playerInventory) != null) {
