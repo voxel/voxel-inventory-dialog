@@ -9,14 +9,14 @@ module.exports = (game, opts) ->
   new InventoryDialog(game, opts)
 
 module.exports.pluginInfo =
-  'loadAfter': ['craftingrecipes', 'voxel-carry', 'voxel-registry']
+  'loadAfter': ['voxel-recipes', 'voxel-carry', 'voxel-registry']
 
 class InventoryDialog extends ModalDialog
   constructor: (@game, opts) ->
     return if not @game.isClient # TODO: server
 
     @playerInventory = game.plugins?.get('voxel-carry')?.inventory ? opts.playerInventory ? throw 'voxel-inventory-dialog requires "voxel-carry" plugin or playerInventory" set to inventory instance'
-    @recipes = game.plugins?.get('craftingrecipes') ? throw 'voxel-inventory-dialog requires "craftingrecipes" plugin'
+    @recipes = game.plugins?.get('voxel-recipes') ? throw 'voxel-inventory-dialog requires "voxel-recipes" plugin'
     @registry = game.plugins?.get('voxel-registry') ? throw 'voxel-inventory-dialog requires "voxel-registry" plugin'
 
     @playerIW = new InventoryWindow {inventory:@playerInventory, registry:@registry}

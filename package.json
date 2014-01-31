@@ -22,7 +22,7 @@
   "peerDependencies": {
     "voxel-plugins": ">=0.1.0",
     "voxel-carry": ">=0.1.0",
-    "craftingrecipes": ">=0.1.0",
+    "voxel-recipes": "=>0.0.1",
     "voxel-registry": ">=0.1.0"
   },
   "license": "MIT"
