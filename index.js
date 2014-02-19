@@ -24,7 +24,7 @@
     __extends(InventoryDialog, _super);
 
     function InventoryDialog(game, opts) {
-      var contents, crDiv, craftCont, resultCont, _ref, _ref1, _ref2;
+      var contents, _ref, _ref1, _ref2;
       this.game = game;
       if (!this.game.isClient) {
         return;
@@ -57,40 +57,11 @@
         inventory: this.playerInventory,
         registry: this.registry
       });
-      this.craftInventory = new Inventory(2, 2);
-      this.craftInventory.on('changed', (function(_this) {
-        return function() {
-          return _this.updateCraftingRecipe();
-        };
-      })(this));
-      this.craftIW = new InventoryWindow({
-        inventory: this.craftInventory,
-        registry: this.registry,
-        linkedInventory: this.playerInventory
-      });
-      this.resultInventory = new Inventory(1);
-      this.resultIW = new InventoryWindow({
-        inventory: this.resultInventory,
-        registry: this.registry,
-        allowDrop: false,
-        linkedInventory: this.playerInventory
-      });
-      this.resultIW.on('pickup', (function(_this) {
-        return function() {
-          return _this.tookCraftingOutput();
-        };
-      })(this));
-      crDiv = document.createElement('div');
-      crDiv.style.float = 'right';
-      crDiv.style.marginBottom = '10px';
-      craftCont = this.craftIW.createContainer();
-      resultCont = this.resultIW.createContainer();
-      resultCont.style.marginLeft = '30px';
-      resultCont.style.marginTop = '15%';
-      crDiv.appendChild(craftCont);
-      crDiv.appendChild(resultCont);
+      this.upper = document.createElement('div');
+      this.upper.style.float = 'right';
+      this.upper.style.marginBottom = '10px';
       contents = [];
-      contents.push(crDiv);
+      contents.push(this.upper);
       contents.push(document.createElement('br'));
       contents.push(this.playerIW.createContainer());
       InventoryDialog.__super__.constructor.call(this, game, {
@@ -102,23 +73,6 @@
     InventoryDialog.prototype.enable = function() {};
 
     InventoryDialog.prototype.disable = function() {};
-
-    InventoryDialog.prototype.updateCraftingRecipe = function() {
-      var recipe;
-      recipe = this.recipes.find(this.craftInventory);
-      console.log('found recipe', recipe);
-      return this.resultInventory.set(0, recipe != null ? recipe.computeOutput(this.craftInventory) : void 0);
-    };
-
-    InventoryDialog.prototype.tookCraftingOutput = function() {
-      var recipe;
-      recipe = this.recipes.find(this.craftInventory);
-      if (recipe == null) {
-        return;
-      }
-      recipe.craft(this.craftInventory);
-      return this.craftInventory.changed();
-    };
 
     return InventoryDialog;
 

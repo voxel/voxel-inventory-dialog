@@ -1,4 +1,3 @@
-# vim: set shiftwidth=2 tabstop=2 softtabstop=2 expandtab:
 
 Inventory = require 'inventory'
 InventoryWindow = require 'inventory-window'
@@ -21,30 +20,13 @@ class InventoryDialog extends ModalDialog
 
     @playerIW = new InventoryWindow {inventory:@playerInventory, registry:@registry}
 
-    @craftInventory = new Inventory(2, 2)
-    @craftInventory.on 'changed', () => @updateCraftingRecipe()
-    @craftIW = new InventoryWindow {inventory:@craftInventory, registry:@registry, linkedInventory:@playerInventory}
-
-    @resultInventory = new Inventory(1)
-    @resultIW = new InventoryWindow {inventory:@resultInventory, registry:@registry, allowDrop:false, linkedInventory:@playerInventory}
-    @resultIW.on 'pickup', () => @tookCraftingOutput()
-
-    # crafting + result div, upper
-    crDiv = document.createElement('div')
-    crDiv.style.float = 'right'
-    crDiv.style.marginBottom = '10px'
+    # upper section for any other stuff
+    @upper = document.createElement('div')
+    @upper.style.float = 'right'
+    @upper.style.marginBottom = '10px'
    
-    craftCont = @craftIW.createContainer()
-
-    resultCont = @resultIW.createContainer()
-    resultCont.style.marginLeft = '30px'
-    resultCont.style.marginTop = '15%'
-
-    crDiv.appendChild(craftCont)
-    crDiv.appendChild(resultCont)
-
     contents = []
-    contents.push crDiv
+    contents.push @upper
     contents.push document.createElement('br') # TODO: better positioning
     # player inventory at bottom
     contents.push @playerIW.createContainer()
@@ -58,17 +40,4 @@ class InventoryDialog extends ModalDialog
 
   disable: () ->
 
-  # changed crafting grid, so update recipe output
-  updateCraftingRecipe: () ->
-    recipe = @recipes.find(@craftInventory)
-    console.log 'found recipe',recipe
-    @resultInventory.set 0, recipe?.computeOutput(@craftInventory)
-
-  # picked up crafting recipe output, so consume crafting grid ingredients
-  tookCraftingOutput: () ->
-    recipe = @recipes.find(@craftInventory)
-    return if not recipe?
-
-    recipe.craft(@craftInventory)
-    @craftInventory.changed()
 
