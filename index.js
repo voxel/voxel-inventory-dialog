@@ -12,19 +12,11 @@
 
   ModalDialog = require('voxel-modal-dialog');
 
-  module.exports = function(game, opts) {
-    return new InventoryDialog(game, opts);
-  };
-
-  module.exports.pluginInfo = {
-    'loadAfter': ['voxel-recipes', 'voxel-carry', 'voxel-registry']
-  };
-
-  InventoryDialog = (function(_super) {
+  module.exports = InventoryDialog = (function(_super) {
     __extends(InventoryDialog, _super);
 
     function InventoryDialog(game, opts) {
-      var contents, _ref, _ref1, _ref2;
+      var contents, element, _i, _len, _ref, _ref1, _ref2;
       this.game = game;
       if (!this.game.isClient) {
         return;
@@ -37,22 +29,6 @@
           throw new Error('voxel-inventory-dialog requires "voxel-carry" plugin or playerInventory" set to inventory instance');
         }
       })();
-      this.recipes = (function() {
-        var _ref2;
-        if ((_ref1 = (_ref2 = game.plugins) != null ? _ref2.get('voxel-recipes') : void 0) != null) {
-          return _ref1;
-        } else {
-          throw new Error('voxel-inventory-dialog requires "voxel-recipes" plugin');
-        }
-      })();
-      this.registry = (function() {
-        var _ref3;
-        if ((_ref2 = (_ref3 = game.plugins) != null ? _ref3.get('voxel-registry') : void 0) != null) {
-          return _ref2;
-        } else {
-          throw new Error('voxel-inventory-dialog requires "voxel-registry" plugin');
-        }
-      })();
       this.playerIW = new InventoryWindow({
         inventory: this.playerInventory,
         registry: this.registry
@@ -60,6 +36,11 @@
       this.upper = document.createElement('div');
       this.upper.style.float = 'right';
       this.upper.style.marginBottom = '10px';
+      _ref2 = (_ref1 = opts.upper) != null ? _ref1 : [];
+      for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
+        element = _ref2[_i];
+        this.upper.appendChild(element);
+      }
       contents = [];
       contents.push(this.upper);
       contents.push(document.createElement('br'));
