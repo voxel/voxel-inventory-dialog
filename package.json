@@ -1,7 +1,7 @@
 {
   "name": "voxel-inventory-dialog",
   "description": "player inventory dialog (voxel.js plugin)",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "repository": {
     "type": "git",
     "url": "git@github.com:deathcap/voxel-inventory-dialog.git"
