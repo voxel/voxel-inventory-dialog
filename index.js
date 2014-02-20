@@ -50,8 +50,6 @@
         registry: this.registry
       });
       this.upper = document.createElement('div');
-      this.upper.style.float = 'right';
-      this.upper.style.marginBottom = '10px';
       _ref3 = (_ref2 = opts.upper) != null ? _ref2 : [];
       for (_i = 0, _len = _ref3.length; _i < _len; _i++) {
         element = _ref3[_i];

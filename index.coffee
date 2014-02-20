@@ -25,8 +25,6 @@ class InventoryDialog extends ModalDialog
 
     # upper section for any other stuff
     @upper = document.createElement('div')
-    @upper.style.float = 'right'
-    @upper.style.marginBottom = '10px'
 
     for element in (opts.upper ? [])
       @upper.appendChild element
