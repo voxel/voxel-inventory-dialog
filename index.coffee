@@ -4,11 +4,21 @@ InventoryWindow = require 'inventory-window'
 ItemPile = require 'itempile'
 ModalDialog = require 'voxel-modal-dialog'
 
-module.exports =
+# plugin for example purposes
+module.exports = (game, opts) ->
+  new InventoryDialog(game, opts)
+
+module.exports.pluginInfo =
+  'loadAfter': ['voxel-recipes', 'voxel-carry', 'voxel-registry']
+
+
+# class for extension in other plugins
+module.exports.InventoryDialog =
 class InventoryDialog extends ModalDialog
   constructor: (@game, opts) ->
     return if not @game.isClient # TODO: server
 
+    @registry = game.plugins?.get('voxel-registry') ? throw new Error('voxel-inventory-dialog requires "voxel-registry" plugin')
     @playerInventory = game.plugins?.get('voxel-carry')?.inventory ? opts.playerInventory ? throw new Error('voxel-inventory-dialog requires "voxel-carry" plugin or playerInventory" set to inventory instance')
 
     @playerIW = new InventoryWindow {inventory:@playerInventory, registry:@registry}
@@ -27,10 +37,9 @@ class InventoryDialog extends ModalDialog
     # player inventory at bottom
     contents.push @playerIW.createContainer()
 
-    super game, {
+    super game,
       contents: contents
       escapeKeys:[192, 69] # '`', 'E'
-      }
 
   enable: () ->
 

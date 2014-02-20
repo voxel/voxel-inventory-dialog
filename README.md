@@ -1,18 +1,18 @@
 # voxel-inventory-dialog
 
-An inventory editing dialog for voxel.js:
+A player inventory editing dialog for voxel.js:
 
-![screenshot](http://i.imgur.com/WesAOTc.png "Screenshot")
+![screenshot](http://i.imgur.com/9scWlpR.png "Screenshot")
 
 The lower grid is an [inventory-window](https://github.com/deathcap/inventory-window)
-of the the player's [inventory](https://github.com/deathcap/inventory), for storing items
-(works well with [voxel-inventory-hotbar](https://github.com/deathcap/voxel-inventory-hotbar)
-connected to a subset of the same inventory). 
+of the the player's [inventory](https://github.com/deathcap/inventory) from
+[voxel-carry](https://github.com/deathcap/voxel-carry).
 
-The upper area is a 2x2 crafting grid to use a subset of available
-[craftingrecipes](https://github.com/deathcap/craftingrecipes)
-([voxel-workbench](https://github.com/deathcap/voxel-workbench) allows crafting with larger recipes),
-the result picked up from the (pickup-only) rightmost slot. 
+The upper area is customizable by passing in elements into the
+`upper` option. While voxel-inventory-dialog can be loaded as a plugin on its own,
+it is most useful when extended by other plugins using this option. Used by:
+
+* [voxel-inventory-crafting](https://github.com/deathcap/voxel-inventory-crafting)
 
 Uses [voxel-modal-dialog](https://github.com/deathcap/voxel-modal-dialog), so keyboard/mouse input
 to the game will be suppressed when this dialog is visible. Click outside of the dialog

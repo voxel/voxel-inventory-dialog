@@ -12,19 +12,35 @@
 
   ModalDialog = require('voxel-modal-dialog');
 
-  module.exports = InventoryDialog = (function(_super) {
+  module.exports = function(game, opts) {
+    return new InventoryDialog(game, opts);
+  };
+
+  module.exports.pluginInfo = {
+    'loadAfter': ['voxel-recipes', 'voxel-carry', 'voxel-registry']
+  };
+
+  module.exports.InventoryDialog = InventoryDialog = (function(_super) {
     __extends(InventoryDialog, _super);
 
     function InventoryDialog(game, opts) {
-      var contents, element, _i, _len, _ref, _ref1, _ref2;
+      var contents, element, _i, _len, _ref, _ref1, _ref2, _ref3;
       this.game = game;
       if (!this.game.isClient) {
         return;
       }
-      this.playerInventory = (function() {
-        var _ref1, _ref2, _ref3;
-        if ((_ref = (_ref1 = (_ref2 = game.plugins) != null ? (_ref3 = _ref2.get('voxel-carry')) != null ? _ref3.inventory : void 0 : void 0) != null ? _ref1 : opts.playerInventory) != null) {
+      this.registry = (function() {
+        var _ref1;
+        if ((_ref = (_ref1 = game.plugins) != null ? _ref1.get('voxel-registry') : void 0) != null) {
           return _ref;
+        } else {
+          throw new Error('voxel-inventory-dialog requires "voxel-registry" plugin');
+        }
+      })();
+      this.playerInventory = (function() {
+        var _ref2, _ref3, _ref4;
+        if ((_ref1 = (_ref2 = (_ref3 = game.plugins) != null ? (_ref4 = _ref3.get('voxel-carry')) != null ? _ref4.inventory : void 0 : void 0) != null ? _ref2 : opts.playerInventory) != null) {
+          return _ref1;
         } else {
           throw new Error('voxel-inventory-dialog requires "voxel-carry" plugin or playerInventory" set to inventory instance');
         }
@@ -36,9 +52,9 @@
       this.upper = document.createElement('div');
       this.upper.style.float = 'right';
       this.upper.style.marginBottom = '10px';
-      _ref2 = (_ref1 = opts.upper) != null ? _ref1 : [];
-      for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
-        element = _ref2[_i];
+      _ref3 = (_ref2 = opts.upper) != null ? _ref2 : [];
+      for (_i = 0, _len = _ref3.length; _i < _len; _i++) {
+        element = _ref3[_i];
         this.upper.appendChild(element);
       }
       contents = [];
