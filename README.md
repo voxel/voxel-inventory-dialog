@@ -15,6 +15,7 @@ it is most useful when extended by other plugins using this option. Used by:
 * [voxel-inventory-crafting](https://github.com/deathcap/voxel-inventory-crafting)
 * [voxel-furnace](https://github.com/deathcap/voxel-furnace)
 * [voxel-workbench](https://github.com/deathcap/voxel-workbench)
+* [voxel-chest](https://github.com/voxel-chest)
 
 Uses [voxel-modal-dialog](https://github.com/deathcap/voxel-modal-dialog), so keyboard/mouse input
 to the game will be suppressed when this dialog is visible. Click outside of the dialog
