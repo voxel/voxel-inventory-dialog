@@ -21,7 +21,7 @@ class InventoryDialog extends ModalDialog
     @registry = game.plugins?.get('voxel-registry') ? throw new Error('voxel-inventory-dialog requires "voxel-registry" plugin')
     @playerInventory = game.plugins?.get('voxel-carry')?.inventory ? opts.playerInventory ? throw new Error('voxel-inventory-dialog requires "voxel-carry" plugin or playerInventory" set to inventory instance')
 
-    @playerIW = new InventoryWindow {inventory:@playerInventory, registry:@registry}
+    @playerIW = new InventoryWindow {inventory:@playerInventory, registry:@registry, linkedInventory:opts.playerLinkedInventory}
 
     # upper section for any other stuff
     @upper = document.createElement('div')

@@ -47,7 +47,8 @@
       })();
       this.playerIW = new InventoryWindow({
         inventory: this.playerInventory,
-        registry: this.registry
+        registry: this.registry,
+        linkedInventory: opts.playerLinkedInventory
       });
       this.upper = document.createElement('div');
       _ref3 = (_ref2 = opts.upper) != null ? _ref2 : [];
