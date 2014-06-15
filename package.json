@@ -2,6 +2,7 @@
   "name": "voxel-inventory-dialog",
   "description": "player inventory dialog (voxel.js plugin)",
   "version": "0.4.1",
+  "main": "inventory-dialog.coffee",
   "repository": {
     "type": "git",
     "url": "git@github.com:deathcap/voxel-inventory-dialog.git"
@@ -18,6 +19,9 @@
     "itempile": "~0.2.1",
     "inventory-window": "^0.3.0",
     "ever": "0.0.3"
+  },
+  "browserify": {
+    "transform": [ "coffeeify" ]
   },
   "license": "MIT"
 }
