@@ -1,46 +1,64 @@
+'use strict';
 
-Inventory = require 'inventory'
-InventoryWindow = require 'inventory-window'
-ItemPile = require 'itempile'
-ModalDialog = require 'voxel-modal-dialog'
+const Inventory = require('inventory');
+const InventoryWindow = require('inventory-window');
+const ItemPile = require('itempile');
+const ModalDialog = require('voxel-modal-dialog');
 
-# plugin for example purposes
-module.exports = (game, opts) ->
-  new InventoryDialog(game, opts)
+// plugin for example purposes
+module.exports = (game, opts) => {
+  return new InventoryDialog(game, opts);
+}
 
-module.exports.pluginInfo =
+module.exports.pluginInfo = {
   'loadAfter': ['voxel-recipes', 'voxel-carry', 'voxel-registry']
+};
 
 
-# class for extension in other plugins
-module.exports.InventoryDialog =
-class InventoryDialog extends ModalDialog
-  constructor: (@game, opts) ->
-    return if not @game.isClient # TODO: server
+// class for extension in other plugins
 
-    @registry = game.plugins?.get('voxel-registry') ? throw new Error('voxel-inventory-dialog requires "voxel-registry" plugin')
-    @playerInventory = game.plugins?.get('voxel-carry')?.inventory ? opts.playerInventory ? throw new Error('voxel-inventory-dialog requires "voxel-carry" plugin or playerInventory" set to inventory instance')
+class InventoryDialog extends ModalDialog {
+  constructor(game, opts) {
+    super(game, InventoryDialog.createInventoryDialogContent(opts));
+  }
 
-    @playerIW = new InventoryWindow {inventory:@playerInventory, registry:@registry, linkedInventory:opts.playerLinkedInventory}
+  static createInventoryDialogContent(opts) {
+    const registry = game.plugins.get('voxel-registry');
+    if (!registry) throw new Error('voxel-inventory-dialog requires "voxel-registry" plugin')
 
-    # upper section for any other stuff
-    @upper = document.createElement('div')
+    const playerInventory = game.plugins.get('voxel-carry').inventory || opts.playerInventory; // TODO: proper error if voxel-carry missing
+    if (!playerInventory) throw new Error('voxel-inventory-dialog requires "voxel-carry" plugin or playerInventory" set to inventory instance');
 
-    for element in (opts.upper ? [])
-      @upper.appendChild element
+    const playerIW = new InventoryWindow({inventory: playerInventory, registry: registry, linkedInventory: opts.playerLinkedInventory});
+
+    // upper section for any other stuff
+    const upper = document.createElement('div');
+
+    if (opts.upper) {
+      for (let element of opts.upper) {
+        this.upper.appendChild(element);
+      }
+    }
    
-    contents = []
-    contents.push @upper
-    contents.push document.createElement('br') # TODO: better positioning
-    # player inventory at bottom
-    contents.push @playerIW.createContainer()
+    const contents = [];
+    contents.push(upper);
+    contents.push(document.createElement('br')); // TODO: better positioning
+    // player inventory at bottom
+    contents.push(playerIW.createContainer());
 
-    super game,
-      contents: contents
-      escapeKeys:[192, 69] # '`', 'E'
+    opts.contents = contents;
+    opts.escapeKeys = [192, 69]; // '`', 'E';
 
-  enable: () ->
+    return opts;
+  }
 
-  disable: () ->
+  enable() {
+  }
+
+  disable() {
+  }
+}
+
+module.exports.InventoryDialog = InventoryDialog
 
 
