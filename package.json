@@ -14,17 +14,11 @@
     "crafting"
   ],
   "dependencies": {
-    "coffeeify": "^1.0.0",
     "ever": "0.0.3",
-    "inventory": "^1.0.0",
+    "inventory": "^2.0.0",
     "inventory-window": "^1.0.0",
-    "itempile": "^1.0.1",
-    "voxel-modal-dialog": "^0.2.2"
-  },
-  "browserify": {
-    "transform": [
-      "coffeeify"
-    ]
+    "itempile": "^2.0.0",
+    "voxel-modal-dialog": "^1.0.0"
   },
   "license": "MIT"
 }
