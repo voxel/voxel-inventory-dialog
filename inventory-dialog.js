@@ -36,7 +36,7 @@ class InventoryDialog extends ModalDialog {
 
     if (opts.upper) {
       for (let element of opts.upper) {
-        this.upper.appendChild(element);
+        upper.appendChild(element);
       }
     }
    
