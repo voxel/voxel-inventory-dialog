@@ -16,7 +16,7 @@
   "dependencies": {
     "ever": "0.0.3",
     "inventory": "^2.0.0",
-    "inventory-window": "^1.0.0",
+    "inventory-window": "^2.0.0",
     "itempile": "^2.0.0",
     "voxel-modal-dialog": "^1.0.0"
   },
